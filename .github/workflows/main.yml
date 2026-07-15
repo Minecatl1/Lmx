@@ -49,7 +49,7 @@ jobs:
           sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
           echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" | sudo tee /etc/apt/sources.list.d/vscode.list > /dev/null
           sudo apt-get update
-          sudo apt-get install -y code
+          sudo apt-get install -y code x11vnc novnc python3 python3-pip websockify openssl dbus-x11 git
 
           # Chrome (for Antigravity)
           wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
@@ -71,6 +71,9 @@ jobs:
         run: |
           sudo useradd -m -s /bin/bash runner || true
           echo "runner:Antigravity2026!" | sudo chpasswd
+          mkdir ~/vnc
+          echo "runner:Antigravity2026!" | x11vnc -storepasswd ~/.vnc/passwd
+          chmod 600 ~/.vnc/passwd
           sudo usermod -aG sudo runner
 
       - name: Start Cloudflare Tunnel (RDP)
