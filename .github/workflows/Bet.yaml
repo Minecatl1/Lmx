@@ -75,7 +75,7 @@ jobs:
           sudo touch ~/.vnc/passwd
           # Use non-interactive method for VNC password setup
           echo "Antigravity2026!" | sudo tee ~/.vnc/passwd
-          chmod 600 ~/.vnc/passwd
+          sudo chmod 600 ~/.vnc/passwd
           sudo usermod -aG sudo runner
 
       - name: Start Cloudflare Tunnel (RDP)
