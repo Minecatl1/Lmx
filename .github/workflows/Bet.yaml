@@ -27,7 +27,7 @@ jobs:
           sudo DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
             gnome-session gnome-shell gnome-terminal nautilus \
             dbus-x11 x11-xserver-utils xorg \
-            adwaita-icon-theme-full fonts-cantarell flatpak
+            adwaita-icon-theme-full fonts-cantarell flatpak xvfb
           
           echo "✅ GUI Installed (Lightweight Mode)"
 
@@ -84,6 +84,8 @@ jobs:
           sudo usermod -aG sudo runner
       - name: Start x11vnc and novnc
         run: |
+          Xvfb :0 -screen 0 1280x1024x24 &
+          DISPLAY=:0
           x11vnc -forever -display :0 -auth guess -rfbauth ~/.vnc/passwd -rfbport 5900 -shared &
           cd ~
           git clone https://github.com/novnc/noVNC.git
