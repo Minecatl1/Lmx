@@ -66,6 +66,11 @@ jobs:
           Type=Application
           EOF
           chmod +x ~/Desktop/Antigravity.desktop
+  
+
+          
+
+          
 
       - name: Setup User (runner)
         run: |
@@ -77,10 +82,17 @@ jobs:
           echo "Antigravity2026!" | sudo tee ~/.vnc/passwd
           sudo chmod 600 ~/.vnc/passwd
           sudo usermod -aG sudo runner
+      - name: Start x11vnc and novnc
+        run: |
+          x11vnc -forever -display :0 -auth guess -rfbauth ~/.vnc/passwd -rfbport 5900 -shared &
+          cd ~
+          git clone https://github.com/novnc/noVNC.git
+          sleep 2
+          ~/noVNC/utils/novnc_proxy --vnc localhost:5900 --listen 6080 &
 
       - name: Start Cloudflare Tunnel (RDP)
         run: |
-          /usr/local/bin/cloudflared tunnel --url tcp://localhost:3389 > tunnel.log 2>&1 &
+          /usr/local/bin/cloudflared tunnel --url tcp://localhost:6080 > tunnel.log 2>&1 &
           
           echo "Waiting for URL..."
           for i in {1..30}; do
