@@ -72,6 +72,7 @@ jobs:
           sudo useradd -m -s /bin/bash runner || true
           echo "runner:Antigravity2026!" | sudo chpasswd || echo "failed to chpasswd"
           mkdir -p ~/.vnc
+          touch ~/.vnc/passwd
           # Use non-interactive method for VNC password setup
           echo "Antigravity2026!" | ~/.vnc/passwd
           chmod 600 ~/.vnc/passwd
