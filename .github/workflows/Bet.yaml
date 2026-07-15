@@ -92,7 +92,7 @@ jobs:
 
       - name: Start Cloudflare Tunnel (RDP)
         run: |
-          /usr/local/bin/cloudflared tunnel --url tcp://localhost:6080 > tunnel.log 2>&1 &
+          /usr/local/bin/cloudflared tunnel --url http://localhost:6080 > tunnel.log 2>&1 &
           
           echo "Waiting for URL..."
           for i in {1..30}; do
