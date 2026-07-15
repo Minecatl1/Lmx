@@ -73,7 +73,7 @@ jobs:
           echo "runner:Antigravity2026!" | sudo chpasswd || echo "failed to chpasswd"
           mkdir -p ~/.vnc
           # Use non-interactive method for VNC password setup
-          echo "Antigravity2026!" | x11vnc -storepasswd ~/.vnc/passwd < /dev/null
+          echo "Antigravity2026!" | ~/.vnc/passwd
           chmod 600 ~/.vnc/passwd
           sudo usermod -aG sudo runner
 
